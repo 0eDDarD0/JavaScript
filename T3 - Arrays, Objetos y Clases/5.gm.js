@@ -30,7 +30,7 @@ class Game{
                 board[i] = new Casilla(i, "end"); //pone la casilla de fin
             }else if(i % 10 == 0 && i != 90 && i != 10){
                 board[i] = new Casilla(i, "salto"); //pone casilla de salto si es multiplo de 10
-            }else if(i % 5 == 0){
+            }else if(i % 5 == 0 && i != 90 && i != 10){
                 board[i] = new Casilla(i, "oca"); //pone casilla de oca si es multiplo de 5 y no de 10
             }else{
                 board[i] = new Casilla(i, "normal"); //pone una casilla normal
@@ -68,7 +68,7 @@ class Game{
             if((player.pos.num - dice) <= 0){       //si ha llegado o se ha pasado del start lo coloca y anuncia el ganador
                 player.pos = this.board[0];
                 this.winner = player;
-                document.write("El ganador es: " + this.winner.name);
+                console.log("El ganador es: " + this.winner.name);
             }else{
                 player.pos = this.board[player.pos.num - dice];
                 if(player.pos.type == "salto"){     //salto

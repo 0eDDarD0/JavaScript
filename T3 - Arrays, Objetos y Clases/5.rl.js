@@ -25,30 +25,24 @@ class Book{
 
 
 class BookList{
-    constructor(array, read = 0, current_book = 0, last_book = 0, next_book = 0){
-        this.lista = array;
-        this.read = read;
-        this.not_read = this.lista.length - this.read;
-        this.next_book = next_book;
-        this.current_book = current_book;
-        this.last_book = last_book;
+    constructor(){
+        this.lista = [];
+        this.read = 0;
+        this.not_read = 0;
+        this.next_book = 0;
+        this.current_book = 0;
+        this.last_book = 0;
     }
 
     add(libro){
         this.lista.push(libro);
-        this.not_read++;
-        this.not_read == 1 ? this.next_book = libro : "";
-    }
-
-    updateRead(){
-        let num_read = 0;
-        this.lista.forEach(element => {
-            if(element.read){
-                num_read++;
-            }
-        });
-        this.read = num_read;
-        this.not_read = this.lista.length - this.read;
+        if(libro.read){
+            this.read++;
+        }else{
+            this.not_read++;
+            this.not_read == 1 ? this.next_book = libro : "";
+        }
+        
     }
 
     finishCurrentBook(){
@@ -62,7 +56,7 @@ class BookList{
             let fin = false;
             for(let i = 0 ; i < this.lista.length && !fin ; i++){
                 if(!this.lista[i].read){
-                    this.current_book = this.lista[i];
+                    this.next_book = this.lista[i];
                     fin = true;
                 }
             }
@@ -78,16 +72,3 @@ class BookList{
             "<br> Libros: " + this.lista;
     }
 }
-
-b1 = new Book("Don Quijote", "Novela", "Miguel de Cervantes");
-b1.finished_reading();
-b2 = new Book("El Arbol de la Ciencia", "Novela", "Pio Baroja");
-b2.finished_reading();
-b3 = new Book("Juego de Tronos", "Novela", "George R.R.Martin");
-libros = [];
-libros.push(b1);
-libros.push(b2);
-libros.push(b3);
-l1 = new BookList(libros, 0, b1);
-l1.finishCurrentBook();
-document.write(l1);
