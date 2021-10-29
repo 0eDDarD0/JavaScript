@@ -1,7 +1,7 @@
 # DESARROLLO WEB EN ENTORNO CLIENTE
 
-<div style="display: flex; align-items:center; justify-content:space-between;">
-    <img align="center" width="100" height="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png">
+<div align="center">
+    <img  width="100" height="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png">
 </div>
 
 ---
