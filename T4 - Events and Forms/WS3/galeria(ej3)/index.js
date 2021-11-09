@@ -1,35 +1,42 @@
 function main(){
+    let totalimg = 3;
     let numimg = 1;
-    let src = "WS3/galeria(ej3)/" + numimg + ".jpg";
+    let src = "./" + numimg + ".jpg";
     body = document.querySelector('body');
     var hammertime = new Hammer(body);
 
     //creamos y metemos la imagen y le añadimos una url
-    body.appendChild(document.createElement("img"));
-    document.querySelector('img').style.width = "500px";
-    document.querySelector('img').style.height = "500px";
-    document.querySelector('img').src = src;
+    let img = document.querySelector('img');
+    img.src = src;
+
+    //creamos un contador
+    let count = document.getElementById('counter');
+    count.innerHTML = numimg + "/" + totalimg;
 
     //gestos
     hammertime.on('panend', (e)=>{
         if(e.direction == 2){
-            if(numimg < 3){
+            if(numimg < totalimg){
                 numimg++;
-                src = "WS3/galeria(ej3)/" + numimg + ".jpg";
+                count.innerHTML = numimg + "/" + totalimg;
+                src = "./" + numimg + ".jpg";
                 document.querySelector('img').src = src;
             }else{
                 numimg = 1;
-                src = "WS3/galeria(ej3)/" + numimg + ".jpg";
+                count.innerHTML = numimg + "/" + totalimg;
+                src = "./" + numimg + ".jpg";
                 document.querySelector('img').src = src;
             }
         }else if(e.direction == 4){
             if(numimg > 1){
                 numimg--;
-                src = "WS3/galeria(ej3)/" + numimg + ".jpg";
+                count.innerHTML = numimg + "/" + totalimg;
+                src = "./" + numimg + ".jpg";
                 document.querySelector('img').src = src;
             }else{
                 numimg = 3;
-                src = "WS3/galeria(ej3)/" + numimg + ".jpg";
+                count.innerHTML = numimg + "/" + totalimg;
+                src = "./" + numimg + ".jpg";
                 document.querySelector('img').src = src;
             }
         }
