@@ -1,8 +1,8 @@
-img{
-    width: 700px;
-    height: 500px;
-    display: block;
-    margin: auto;
+body{
+    background-image: url('1.jpg');
+    background-color: rgb(51, 51, 51); 
+    background-position: top; 
+    background-repeat: no-repeat; 
 }
 
 #counter{
@@ -15,4 +15,24 @@ img{
     font-family: 'Verdana';
     font-size: x-large;
     font-weight: bolder;
+}
+
+#izq, #der{
+    padding: 15px;
+    background-color: rgba(51, 51, 51, 50);
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+#izq{
+    bottom: 45%;
+    left: 0;
+    border-radius: 0% 100% 100% 0%;
+}
+#der{
+    bottom: 45%;
+    right: 0;
+    border-radius: 100% 0% 0% 100%;
 }

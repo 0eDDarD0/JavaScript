@@ -1,0 +1,18 @@
+body{
+    background-color: burlywood;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+header{
+    box-shadow: black 3px 3px;
+    background-color: cadetblue;
+}
+
+div{
+    border: chocolate 5px solid;
+    background-color: white;
+}
+
+article::after{
+    content: "parrafo de css";
+}

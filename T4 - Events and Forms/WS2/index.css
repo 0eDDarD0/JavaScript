@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Verdana';
+}
+
+nav{
+    border-bottom: 2px solid white;
+    display: block;
+    padding: 5px;
+}
+.boton{
+    padding: 10px;
+    width: fit-content;
+    display: inline-block;
+}
+.boton:hover{
+    background-color: rgb(77, 77, 77);
+    cursor: pointer;
+}
+
+body{
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+h2{
+    margin: 15px;
+}
+
+article{
+    position: absolute;
+    display: inline;
+    float: right;
+}
+.libro{
+    width: 120px;
+    height: 180px;
+    background-color: red;
+    margin: 34px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+@keyframes scaleHover{
+    from {transform: scale(1.0);}
+    to {transform: scale(1.2);
+    }
+}
+.libro:hover{
+    animation-name: scaleHover;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    cursor: pointer;
+}
+
+aside{
+    border-right: 2px solid white;
+    padding-bottom: 640px;
+    float: left;
+}
+ul{
+    list-style: none;
+    margin: 20px;
+}
+li{
+    padding: 5px;
+    padding-right: 100px;
+}
+li:hover{
+    background-color: rgb(77, 77, 77);
+    cursor: pointer;
+}
