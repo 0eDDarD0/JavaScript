@@ -96,7 +96,7 @@ function main(){
                     for(let i = 0 ; i < listas[listas.length-1].lista.length ; i++){
                         let l = document.createElement('div');
                         l.className = "libro";
-                        l.innerHTML = listas[listas.length-1].lista[i].title;
+                        l.innerHTML = listas[index].lista[i].title;
                         document.querySelector('article').appendChild(l);
                     }
                     displayed = listas[index];
