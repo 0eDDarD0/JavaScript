@@ -3,19 +3,34 @@
     padding: 0;
     font-family: 'Verdana';
 }
+img{
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    margin: 3px;
+
+}
 
 nav{
-    border-bottom: 2px solid white;
+    border-bottom: 1px solid rgb(80, 80, 80);
     display: block;
     padding: 5px;
+    background-color: rgb(56, 56, 56);
 }
 .boton{
     padding: 10px;
     width: fit-content;
     display: inline-block;
+    border-radius: 3px;
+}
+@keyframes botonHover{
+    from{background-color: rgb(56, 56, 56); color: white;}
+    to{background-color: rgb(255, 255, 255); color: rgb(56, 56, 56);}
 }
 .boton:hover{
-    background-color: rgb(77, 77, 77);
+    animation-name: botonHover;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
     cursor: pointer;
 }
 
@@ -35,8 +50,7 @@ article{
 .libro{
     width: 120px;
     height: 180px;
-    background-color: red;
-    margin: 34px;
+    margin: 33px;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
@@ -54,9 +68,10 @@ article{
 }
 
 aside{
-    border-right: 2px solid white;
+    border-right: 1px solid rgb(80, 80, 80);
     padding-bottom: 640px;
     float: left;
+    background-color: rgb(56, 56, 56);
 }
 ul{
     list-style: none;
@@ -64,9 +79,16 @@ ul{
 }
 li{
     padding: 5px;
-    padding-right: 100px;
+    padding-right: 70px;
+    border-radius: 3px;
+}
+@keyframes liHover{
+    from{background-color: rgb(56, 56, 56); color: white;}
+    to{background-color: rgb(255, 255, 255); color: rgb(56, 56, 56);}
 }
 li:hover{
-    background-color: rgb(77, 77, 77);
+    animation-name: liHover;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
     cursor: pointer;
 }

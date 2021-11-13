@@ -72,10 +72,11 @@ class BookList{
 
 function main(){
 
-    var displayed = "";
-    document.querySelector('#aniadirLibro').style.display = "None";
-    var listas = [];
-    var listasui = [];
+    var displayed = ""; //reference to the list that is being currently displayed
+    document.querySelector('#aniadirLibro').style.display = "None"; //add book buton set to no display since there are no lists
+    var listas = [];    //array of lists objects
+    var listasui = [];  //array of lists as they are displayed
+    var librosui = [];  //bi-dimensional array of books as html for every list
     var ulListas = document.querySelector('#listas');
 
 
@@ -84,6 +85,7 @@ function main(){
         if(name){
             list = new BookList(name);
             listas.push(list);
+            librosui.push([]);
 
             listasui.push(document.createElement("li"));
             let index = listasui.length - 1
@@ -94,31 +96,36 @@ function main(){
             listasui[index].addEventListener('click', (e)=>{
                 if(!displayed){   //Si no se muestra una lista se muestra la clicada
                     for(let i = 0 ; i < listas[listas.length-1].lista.length ; i++){
-                        let l = document.createElement('div');
-                        l.className = "libro";
-                        l.innerHTML = listas[index].lista[i].title;
-                        document.querySelector('article').appendChild(l);
+                        //let l = document.createElement('div');
+                        //l.className = "libro";
+                        //l.innerHTML = listas[index].lista[i].title;
+                        document.querySelector('article').appendChild(librosui[index][i]);
                     }
                     displayed = listas[index];
-                    listasui[index].style.backgroundColor = "rgb(77, 77, 77)";
+                    listasui[index].style.backgroundColor = "white";
+                    listasui[index].style.color = "rgb(56, 56, 56)";
                     document.querySelector('#aniadirLibro').style.display = "inline-block";
                 }else if(displayed != listas[index]){    //Si la lista que se muestra es otra se elimina y se muestra la nueva
                     document.querySelector('article').innerHTML = "";   //se quitan los libros 
                     for(let i = 0 ; i < listas[index].lista.length ; i++){  //por cada libro de la lista se añade un div
-                        let l = document.createElement('div');
-                        l.className = "libro";
-                        l.innerHTML = listas[index].lista[i].title;
-                        document.querySelector('article').appendChild(l);
+                        //let l = document.createElement('div');
+                        //l.className = "libro";
+                        //l.innerHTML = listas[index].lista[i].title;
+                        document.querySelector('article').appendChild(librosui[index][i]);
                     }
                     listasui[listas.indexOf(displayed)].style.backgroundColor = "";
+                    listasui[listas.indexOf(displayed)].style.color = "";
+                    listasui[index].style.color = "";
                     displayed = listas[index];  //cambia la variable
-                    listasui[index].style.backgroundColor = "rgb(77, 77, 77)";
+                    listasui[index].style.backgroundColor = "white";
+                    listasui[index].style.color = "rgb(56, 56, 56)";
                     document.querySelector('#aniadirLibro').style.display = "inline-block"; //añade el boton addBook
 
                 }else if(displayed == listas[index]){  //Si la lista que se muestra es la misma desaparecen los libros
                     document.querySelector('article').innerHTML = "";   //quita los libros
                     displayed = ""; //vacia la variable
                     listasui[index].style.backgroundColor = ""; //elimina el color de la seleccion
+                    listasui[index].style.color = "";
                     document.querySelector('#aniadirLibro').style.display = "None"; //quita el boton addBook
 
                 }
@@ -139,6 +146,9 @@ function main(){
                 let l = document.createElement('div');
                 l.className = "libro";
                 l.innerHTML = title;
+                l.title = "Género: " + genre + "\nAutor: " + author;
+                l.style.backgroundColor = "rgb("+Math.floor(Math.random() * 256 + 1)+", "+Math.floor(Math.random() * 256 + 1)+", "+Math.floor(Math.random() * 256 + 1)+")";
+                librosui[listas.indexOf(displayed)].push(l);
                 document.querySelector('article').appendChild(l);
             }else{
                 alert("Por favor proporcione un titulo, un genero y un autor validos");
@@ -148,23 +158,6 @@ function main(){
         }
     }
     document.querySelector('#aniadirLibro').addEventListener('click', addBook);
-
-
-    libros = [];
-    libros.push(new Book("Don Quijote", "Novela", "Cervantes"));
-    libros.push(new Book("Juego de Tronos", "Novela", "George R.R.Martin"));
-    libros.push(new Book("La Biblia", "Novela / Autoayuda", "Múltiples Autores"));
-    libros.push(new Book("Libro1", "genero1", "autor1"));
-    libros.push(new Book("Libro2", "genero2", "autor2"));
-    libros.push(new Book("Libro3", "genero3", "autor3"));
-    libros.push(new Book("Libro4", "genero4", "autor4"));
-    libros.push(new Book("LIBRO CON EL TITULO LARGUISIMO PERO TELA DE LARGO EH", "genero5", "autor5"));
-
-    addList();
-    for(let i = 0 ; i < libros.length ; i++){
-        listas[0].add(libros[i]);
-    }
-
 }
 
 window.addEventListener('load', main);
