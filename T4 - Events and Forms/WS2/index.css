@@ -34,9 +34,10 @@ nav{
     cursor: pointer;
 }
 
-body{
+body,html{
     background-color: rgb(39, 39, 39);
     color: white;
+    height: 100%;
 }
 h2{
     margin: 15px;
@@ -69,9 +70,9 @@ article{
 
 aside{
     border-right: 1px solid rgb(80, 80, 80);
-    padding-bottom: 640px;
     float: left;
     background-color: rgb(56, 56, 56);
+    min-height: 92%;
 }
 ul{
     list-style: none;
