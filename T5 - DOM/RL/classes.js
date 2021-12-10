@@ -16,12 +16,12 @@ class Book{
 
 
 class uiBook{
-    constructor(title, genre, author){
-        this.modelo = new Book(title, genre, author);
+    constructor(book){
+        this.modelo = book;
         this.tag = document.createElement('div');
         this.tag.className = "libro";
-        this.tag.innerHTML = title;
-        this.tag.title = "Género: " + genre + "\nAutor: " + author;
+        this.tag.innerHTML = this.modelo.title;
+        this.tag.title = "Género: " + this.modelo.genre + "\nAutor: " + this.modelo.author;
         this.tag.style.backgroundColor = "rgb("+Math.floor(Math.random() * 256 + 1)+", "+Math.floor(Math.random() * 256 + 1)+", "+Math.floor(Math.random() * 256 + 1)+")";         
     }
 }
@@ -45,34 +45,25 @@ class BookList{
         this.not_read == 1 ? this.next_book = libro : "";
     }
 
-    //finishCurrentBook(){
-    //    this.lista[this.lista.indexOf(this.current_book)].finished_reading();
-    //    this.last_book = this.current_book;
-    //    this.current_book = this.next_book;
-    //    this.read++;
-    //    this.not_read--;
-
-    //    if(this.not_read > 0){
-    //        let fin = false;
-    //        for(let i = 0 ; i < this.lista.length && !fin ; i++){
-    //            if(!this.lista[i].read){
-    //                this.next_book = this.lista[i];
-    //                fin = true;
-    //            }
-    //        }
-    //    }
-    //}
+    nuevo(lista){
+        this.name = lista.name;
+        this.lista = lista.lista;
+        this.read = lista.read;
+        this.not_read = lista.not_read;
+        this.next_book = lista.next_book;
+        this.current_book = lista.current_book;
+        this.last_book = lista.last_book;
+    }
 }
 
 class uiBookList{
-    constructor(name){
-        this.name = name;
-        this.display = 0;
-        this.modelo = new BookList(name);
-        this.listTag = document.createElement('li');
-        this.listTag.id = this.name;
-        this.listTag.innerHTML = this.name;
-        document.getElementById('aside-listas').appendChild(this.listTag);
+    constructor(lista){
+        this.modelo = lista
+        this.tag = document.createElement('li');
+        this.tag.id = this.modelo.name;
+        this.tag.innerHTML = this.modelo.name;
+        document.getElementById('aside-listas').appendChild(this.tag);
+        this.tag_list = []
     }
 }
 
