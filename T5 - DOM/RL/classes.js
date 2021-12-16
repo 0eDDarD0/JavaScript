@@ -68,3 +68,20 @@ class uiBookList{
 }
 
 export{Book, BookList, uiBookList, uiBook};
+
+//JSON DEFINITION EXAMPLE
+//var lista = {
+//    'name' : 'lista1',
+//    'lista' : [{
+//        'title' : 'Don Quijote',
+//        'genre' : 'Novela',
+//        'author' : 'Cervantes',
+//        'read' : false,
+//        'read_date' : ''
+//    }],
+//    'read' : 0,
+//    'not_read' : 1,
+//    'next_book' : null,
+//    'current_book' : null,
+//    'last_book' : null
+//}
