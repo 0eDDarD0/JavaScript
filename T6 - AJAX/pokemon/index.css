@@ -1,0 +1,105 @@
+/*ESTILOS GENERALES DE LA PAGINA*/
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    background-color: rgb(212, 212, 212);
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/*ESTILOS DE LA CABECERA*/
+header{
+    padding: 20px;
+    margin: 10px;
+
+    background-color: black;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header *{
+    margin: 10px;
+}
+input{
+    height: fit-content;
+}
+
+
+/*CUERPO DE LA PAGINA*/
+article{
+    margin: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+
+/*TARJETAS*/
+.card{
+    box-shadow: 3px 3px 5px;
+    padding: 10px;
+    width: 400px;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pokemon{
+    width: 200px;
+    height: 200px;
+}
+.text{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*DETALLE*/
+.detalle{
+    width: 1200px;
+    height: 600px;
+    background-color: white;
+    position: fixed;
+    top: 50px;
+    left: 150px;
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.829);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+.izq,.der{
+    width: 40%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.pokemon2{
+    width: 350px;
+    height: 350px;
+}
+.text2{
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
