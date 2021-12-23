@@ -1,15 +1,11 @@
 function main(){
-    //CARGAMOS TODOS LOS POKEMONS
+    //ARRAY DE POKEMONS
     let pokemons = [];
-    for(let i = 1 ; i < 899 ; i++){
-        fetch('https://pokeapi.co/api/v2/pokemon/' + i).then(response => response.json()).then((data)=>{
-            pokemons.push(data);
-            let card = createCard(data)
-            document.querySelector('article').appendChild(card);
-        });
-    }
+    var pidiendo = false;
+    //PEDIMOS LOS PRIMEROS POKEMON
+    pedirPokemons(1, pokemons);
 
-    //EVENTO PARA LA BUSQUEDA DE UN POKEMON
+    //EVENTO PARA LA BUSQUEDA DE UN POKEMON (OBSOLETO)
     window.addEventListener('keyup', (e)=>{
         let input = document.querySelector('#search');
         //SI SE ESCRIBE ALGO SE COMPARA Y SE BUSCAN LAS COINCIDENCIAS
@@ -30,6 +26,14 @@ function main(){
             }
         }
     });
+
+
+    //COMPROBAMOS EL NIVEL DEL SCROLL PARA SABER CUANDO PEDIR MAS POKEMONS
+    setInterval(() => {
+        if(window.scrollY + window.innerHeight >= document.body.offsetHeight - 2500 && pokemons.length < 898){
+            pedirPokemons(pokemons.length + 1, pokemons);
+        }        
+    }, 3000);
 
 }
 window.addEventListener('load', main);
@@ -55,6 +59,13 @@ function createCard(d){
         createDetail(d);
     });
 
+    //NUMERO
+    let text = maquetaElemento('div', 'text', '');
+    let num = maquetaElemento('div', '', d.id);
+    text.appendChild(num);
+    text.style.width = "10%";
+    text.style.justifyContent = 'center';
+    card.appendChild(text);
 
     //IMAGEN
     let img = maquetaElemento('img', 'pokemon', '');
@@ -63,7 +74,7 @@ function createCard(d){
 
 
     //TEXTO
-    let text = maquetaElemento('div', 'text', '');
+    text = maquetaElemento('div', 'text', '');
     //nombre
     let name = maquetaElemento('div', '', "Name: " + mayuscula(d.name));
     text.appendChild(name);
@@ -159,13 +170,21 @@ function createDetail(d){
         let izq = maquetaElemento('div', 'izq', '');
         detalle.appendChild(izq);
 
+        //NUMERO
+        let text = maquetaElemento('div', 'text', '');
+        let num = maquetaElemento('div', '', 'Id: ' + d.id);
+        text.appendChild(num);
+        text.style.width = "15%";
+        text.style.justifyContent = 'center';
+        izq.appendChild(text);
+
         //IMAGEN
         let img = maquetaElemento('img', 'pokemon2', '');
         img.src = d.sprites['front_default'];
         izq.appendChild(img);
 
         //TEXTO IZQUIERDA
-        let text = maquetaElemento('div', 'text2', '');
+        text = maquetaElemento('div', 'text2', '');
         //nombre
         let name = maquetaElemento('div', '', "Name: " + mayuscula(d.name));
         text.appendChild(name);
@@ -228,4 +247,29 @@ function maquetaElemento(tag, clase, inner){
     elem.innerHTML = inner;
 
     return elem;
+}
+
+
+
+function pedirPokemons(inicio, pokemons){
+    pidiendo = true;
+    //FUNCION QUE PIDE POKEMONS A LA API Y LOS MAQUETA
+    for(let i = inicio ; i < inicio + 100 ; i++){//899
+        fetch('https://pokeapi.co/api/v2/pokemon/' + i).then(response => response.json()).then((data)=>{
+            if(!pokemons.includes(data)){
+                pokemons.push(data);
+                //ORDENAMOS SEGUN ID DEL POKEMON
+                pokemons.sort((a,b)=>{
+                    return a.id - b.id;
+                });
+                //VOLVEMOS A MAQUETAR
+                document.querySelector('article').innerHTML = "";
+                for(let j = 0 ; j < pokemons.length ; j++){
+                    let card = createCard(pokemons[j]);
+                    document.querySelector('article').appendChild(card);
+                }
+            }
+        });
+    }
+    pidiendo = false;
 }

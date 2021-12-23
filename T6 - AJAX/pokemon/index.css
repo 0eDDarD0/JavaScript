@@ -61,6 +61,7 @@ article{
     padding: 10px;
     border-radius: 5px;
     width: 80%;
+    
     display: flex;
     justify-content: space-between;
 }
