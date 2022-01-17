@@ -1,4 +1,4 @@
-function main(){
+$(document).ready(function(){
     //ARRAY DE POKEMONS
     let pokemons = [];
     var pidiendo = false;
@@ -6,26 +6,26 @@ function main(){
     pedirPokemons(1, pokemons);
 
     //EVENTO PARA LA BUSQUEDA DE UN POKEMON (OBSOLETO)
-    window.addEventListener('keyup', (e)=>{
-        let input = document.querySelector('#search');
-        //SI SE ESCRIBE ALGO SE COMPARA Y SE BUSCAN LAS COINCIDENCIAS
-        if(input.value.length > 0){
-            document.querySelector('article').innerHTML = "";
-            for(let i = 0 ; i < pokemons.length ; i++){
-                if(pokemons[i].name.includes(input.value.toLowerCase())){
-                    let card = createCard(pokemons[i]);
-                    document.querySelector('article').appendChild(card);
-                }
-            }
-        //SI NO HAY NADA SE VUELVEN A COLOCAR TODOS
-        }else if(input.value.length == 0){
-            document.querySelector('article').innerHTML = "";
-            for(let i = 0 ; i < pokemons.length ; i++){
-                let card = createCard(pokemons[i]);
-                document.querySelector('article').appendChild(card);
-            }
-        }
-    });
+    //window.addEventListener('keyup', (e)=>{
+    //    let input = document.querySelector('#search');
+    //    //SI SE ESCRIBE ALGO SE COMPARA Y SE BUSCAN LAS COINCIDENCIAS
+    //    if(input.value.length > 0){
+    //        document.querySelector('article').innerHTML = "";
+    //        for(let i = 0 ; i < pokemons.length ; i++){
+    //            if(pokemons[i].name.includes(input.value.toLowerCase())){
+    //                let card = createCard(pokemons[i]);
+    //                document.querySelector('article').append(card);
+    //            }
+    //        }
+    //    //SI NO HAY NADA SE VUELVEN A COLOCAR TODOS
+    //    }else if(input.value.length == 0){
+    //        document.querySelector('article').innerHTML = "";
+    //        for(let i = 0 ; i < pokemons.length ; i++){
+    //            let card = createCard(pokemons[i]);
+    //            document.querySelector('article').append(card);
+    //        }
+    //    }
+    //});
 
 
     //COMPROBAMOS EL NIVEL DEL SCROLL PARA SABER CUANDO PEDIR MAS POKEMONS
@@ -35,49 +35,42 @@ function main(){
         }        
     }, 3000);
 
-}
-window.addEventListener('load', main);
+});
 
 function createCard(d){
     //CARTA
     let card = maquetaElemento('div', 'card', '');
     //COLOR DE FONDO EN FUNCION DEL TIPO DEL POKEMON
     if(d.types.length > 1){
-        card.style.backgroundImage = "linear-gradient(to bottom right, " + colorType(d.types[0].type.name) + ", " + colorType(d.types[1].type.name) + ")" ;
+        card.css({'backgroundImage' : "linear-gradient(to bottom right, " + colorType(d.types[0].type.name) + ", " + colorType(d.types[1].type.name) + ")"});
     }else{
-        card.style.backgroundColor = colorType(d.types[0].type.name);
+        card.css({'backgroundColor' : colorType(d.types[0].type.name)});
     }
-    //EVENTOS DE LA CARTA
-    card.addEventListener('mouseover', (e)=>{
-        card.style.transform = 'scale(1.05)';
-    });
-    card.addEventListener('mouseleave', (e)=>{
-        card.style.transform = 'scale(1)';
-    });
+
     //EVENTO QUE CREA EL DETALLE
-    card.addEventListener('click', (e)=>{
-        createDetail(d);
+    card.click(function(e){
+        createDetail(d.name);
     });
 
     //NUMERO
     let text = maquetaElemento('div', 'text', '');
     let num = maquetaElemento('div', '', d.id);
-    text.appendChild(num);
-    text.style.width = "10%";
-    text.style.justifyContent = 'center';
-    card.appendChild(text);
+    text.append(num);
+    text.css({'width' : "10%"});
+    text.css({'justifyContent' : 'center'});
+    card.append(text);
 
     //IMAGEN
     let img = maquetaElemento('img', 'pokemon', '');
-    img.src = d.sprites['front_default'];
-    card.appendChild(img);
+    img.attr({'src' : d.sprites['front_default']});
+    card.append(img);
 
 
     //TEXTO
     text = maquetaElemento('div', 'text', '');
     //nombre
     let name = maquetaElemento('div', '', "Name: " + mayuscula(d.name));
-    text.appendChild(name);
+    text.append(name);
     //tipo
     let type;
     if(d.types.length > 1){
@@ -85,10 +78,11 @@ function createCard(d){
     }else{
         type = maquetaElemento('div', '', "Types: " + mayuscula(d.types[0].type.name)); 
     }
-    text.appendChild(type);
+    text.append(type);
 
-
-    card.appendChild(text);
+    //card.css({'display' : 'none'});
+    card.append(text);
+    //card.fadeIn();
     return card;
 }
 
@@ -146,21 +140,22 @@ function colorType(type){
 
 
 
-function createDetail(d){
+function createDetail(nombre){
     //FUNCION QUE MAQUETA EL DETALLE DE UN POKEMON
-    fetch('https://pokeapi.co/api/v2/pokemon/' + d.name).then(response => response.json()).then((data)=>{
+    $.get('https://pokeapi.co/api/v2/pokemon/' + nombre, function(d){
         let detalle = maquetaElemento('div', 'detalle', '');
         //COLOR DEL DETALLE
         if(d.types.length > 1){
-            detalle.style.backgroundImage = "linear-gradient(to bottom right, " + colorType(d.types[0].type.name) + ", " + colorType(d.types[1].type.name) + ")" ;
+            detalle.css({'background-image' : "linear-gradient(to bottom right, " + colorType(d.types[0].type.name) + ", " + colorType(d.types[1].type.name) + ")"});
         }else{
-            detalle.style.backgroundColor = colorType(d.types[0].type.name);
+            detalle.css({'background-color' : colorType(d.types[0].type.name)});
         }
 
         //EVENTO QUE ELIMINA EL DETALLE
-        window.addEventListener('click', (e)=>{
+        $(window).click(function(e){
             if(e.target != detalle){
-                document.querySelector('body').removeChild(detalle);
+                $('div.detalle').fadeOut('fast');
+                //$('div.detalle').remove();
             }
         });
 
@@ -168,26 +163,26 @@ function createDetail(d){
 
         //PARTE IZQUIERDA
         let izq = maquetaElemento('div', 'izq', '');
-        detalle.appendChild(izq);
+        detalle.append(izq);
 
         //NUMERO
         let text = maquetaElemento('div', 'text', '');
         let num = maquetaElemento('div', '', 'Id: ' + d.id);
-        text.appendChild(num);
-        text.style.width = "15%";
-        text.style.justifyContent = 'center';
-        izq.appendChild(text);
+        text.append(num);
+        text.css({'width' : "15%"});
+        text.css({'justifyContent' : 'center'});
+        izq.append(text);
 
         //IMAGEN
         let img = maquetaElemento('img', 'pokemon2', '');
-        img.src = d.sprites['front_default'];
-        izq.appendChild(img);
+        img.attr({'src' : d.sprites['front_default']});
+        izq.append(img);
 
         //TEXTO IZQUIERDA
         text = maquetaElemento('div', 'text2', '');
         //nombre
         let name = maquetaElemento('div', '', "Name: " + mayuscula(d.name));
-        text.appendChild(name);
+        text.append(name);
         //tipo
         let type;
         if(d.types.length > 1){
@@ -195,46 +190,46 @@ function createDetail(d){
         }else{
             type = maquetaElemento('div', '', "Types: " + mayuscula(d.types[0].type.name));
         }
-        text.appendChild(type);
+        text.append(type);
         //peso
         let peso = maquetaElemento('div', '', "Weight: " + (parseInt(d.weight) / 10) + "Kg");
-        text.appendChild(peso);
+        text.append(peso);
         //altura
         let altura = maquetaElemento('div', '', "Height: " + (parseInt(d.height) / 10) + "m");
-        text.appendChild(altura);
+        text.append(altura);
         //SE CIERRA PARTE IZQUIERDA
-        izq.appendChild(text);
+        izq.append(text);
 
 
         //PARTE DERECHA
         let der = maquetaElemento('div', 'der', '');
-        detalle.appendChild(der);
+        detalle.append(der);
         //TEXTO DERECHA 1
         text = maquetaElemento('div', 'text2', '');
         //estadisticas
         let stats = ['PS: ', 'Attack: ', 'Defense: ', 'Sp Attack: ', 'Sp Defense: ', 'Speed: '];
         for(let i = 0 ; i < stats.length ; i++){
             let stat = maquetaElemento('div', '', stats[i] + d.stats[i].base_stat);
-            text.appendChild(stat);
+            text.append(stat);
         }
         //SE CIERRA TEXTO DERECHA 1
-        der.appendChild(text);
+        der.append(text);
 
         //TEXTO DERECHA 2
         text = maquetaElemento('div', 'text2', '');
         //habilidad1
         let hab = maquetaElemento('div', '', "Hability 1º: " + mayuscula(d.abilities[0].ability.name));
-        text.appendChild(hab);
+        text.append(hab);
         //habilidad2
         if(d.abilities.length > 1){
             hab = maquetaElemento('div', '', "Hability 2º: " + mayuscula(d.abilities[1].ability.name));
-            text.appendChild(hab);
+            text.append(hab);
         }
         //SE CIERRA TEXTO DERECHA 2
-        der.appendChild(text);
+        der.append(text);
 
         //CERRAMOS EL DETALLE
-        document.querySelector('body').appendChild(detalle);
+        $('body').append(detalle);
         });
 }
 
@@ -242,9 +237,9 @@ function createDetail(d){
 
 function maquetaElemento(tag, clase, inner){
     //FUNCION QUE INICIALIZA Y CAMBIA LOS PARAMETROS GENERALES DE UN OBJETO DOM
-    let elem = document.createElement(tag);
-    elem.className = clase;
-    elem.innerHTML = inner;
+    let elem = $('<' + tag + '></' + tag + '>');
+    elem.addClass(clase);
+    elem.text(inner);
 
     return elem;
 }
@@ -255,7 +250,7 @@ function pedirPokemons(inicio, pokemons){
     pidiendo = true;
     //FUNCION QUE PIDE POKEMONS A LA API Y LOS MAQUETA
     for(let i = inicio ; i < inicio + 100 ; i++){//899
-        fetch('https://pokeapi.co/api/v2/pokemon/' + i).then(response => response.json()).then((data)=>{
+        $.get('https://pokeapi.co/api/v2/pokemon/' + i, function(data){
             if(!pokemons.includes(data)){
                 pokemons.push(data);
                 //ORDENAMOS SEGUN ID DEL POKEMON
@@ -266,7 +261,7 @@ function pedirPokemons(inicio, pokemons){
                 document.querySelector('article').innerHTML = "";
                 for(let j = 0 ; j < pokemons.length ; j++){
                     let card = createCard(pokemons[j]);
-                    document.querySelector('article').appendChild(card);
+                    $('article').append(card);
                 }
             }
         });

@@ -43,6 +43,16 @@ article{
 
 
 /*TARJETAS*/
+@keyframes escalar {
+    from{transform: scale(1);}
+    to{transform: scale(1.05);}
+}
+.card:hover{
+    animation-name: escalar;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
 .card{
     box-shadow: 3px 3px 5px;
     padding: 10px;
