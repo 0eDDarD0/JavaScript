@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="app">
+        <div class="form">
+            Titulo:
+            <input v-model="titulo">
+            Descripción:
+            <input class="desc" v-model="descripcion">
+            Prioridad: 
+            <select v-model="prioridad">
+                <option value="1">Alta</option>
+                <option value="2">Media</option>
+                <option value="3">Baja</option>
+            </select>
+            <button v-on:click="crear">Crear</button>
+        </div>
+        <div class="container">
+            <div v-for="(nota, index) in notas" v-bind:key="index" v-bind:class="{terminada : notas[index].done, pendiente : !notas[index].done}">
+                <div>
+                    <h3>{{nota.titulo}}</h3>
+                    <p>{{nota.descripcion}}</p>
+                    <p>Prioridad: {{prioridadStr(index)}}</p>
+                    <p>{{nota.fecha}}</p>
+                    <!--<p>id: {{nota.id}}</p>-->
+                </div>
+                <div>
+                    <button v-on:click="terminar(nota.id)">O</button>
+                    <button v-on:click="eliminar(nota.id)">X</button>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <p>Tienes {{tamanio}} tareas, {{sinTerminar}} están pendientes</p>
+            <button v-on:click="pendientes">Pendientes</button>
+        </div>
+    </div>      
+</body>
+</html>

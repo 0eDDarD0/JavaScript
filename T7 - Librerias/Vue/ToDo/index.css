@@ -1,0 +1,80 @@
+@font-face {
+    font-family: Comfortaa;
+    src: url('./Comfortaa.ttf');
+}
+*{
+    padding: 0;
+    margin: 0;
+
+    font-family: Comfortaa;
+}
+body{
+    display: flex;
+    flex-direction: column;
+
+    background-image: linear-gradient(to top right, rgb(16, 0, 165), rgb(255, 0, 0));
+    background-repeat: no-repeat;
+
+    height: 100vh;
+}
+#app > div{
+    background-color: rgb(44, 39, 61);
+    color: white;
+    border-radius: 20px;
+
+    margin: 10px;
+    padding: 20px;
+}
+
+/* FORMULARIO DE CREACION */
+.form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.form .desc{
+    width: 50%;
+}
+.form button{
+    width: 5%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    height: 70vh;
+}
+.container div{
+    display: flex;
+    justify-content: space-between;
+
+    padding: 9px;
+    margin: 5px;
+
+    border-radius: 10px;
+}
+.container div *{
+    margin: 2px;
+
+    display: flex;
+    flex-direction: column;
+}
+.container button{
+    padding: 5px;
+}
+.terminada{
+    background-color: palegreen;
+    color: black;
+}
+.pendiente{
+    background-color: palevioletred;
+}
+
+
+.foot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
